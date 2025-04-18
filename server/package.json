@@ -1,0 +1,32 @@
+{
+  "name": "hk-pet-protection-map-server",
+  "version": "1.0.0",
+  "description": "香港寵物保護地圖後端服務器",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "pet",
+    "protection",
+    "map",
+    "hong kong",
+    "mongodb",
+    "express",
+    "socket.io"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mongoose": "^8.0.3",
+    "socket.io": "^4.7.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+} 
