@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -715,246 +716,248 @@ function App() {
   };
 
   return (
-    <div className="container mt-4">
-      <h1 className="text-center mb-4">🐾 香港寵物保護地圖 🐾</h1>
-      
-      {/* 添加新地點 - Moved to top of the page */}
-      <div className="row mb-4">
-        <div className="col-12">
-          <div className="card">
-            <div className="card-body">
-              <h5 className="card-title">📍 添加新地點</h5>
-              
-              {/* 地址搜索工具 */}
-              <div className="address-search-section mb-3">
-                <h6>🔍 不知道確切座標？</h6>
-                <p className="small text-muted">搜索香港地址來獲取座標</p>
-                <LocationSearch onSelectLocation={handleLocationSelect} />
-              </div>
-              
-              <form onSubmit={handleFormSubmit}>
-                <div className="row">
-                  <div className="col-md-4 mb-3">
-                    <label className="form-label">📌 地點名稱</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      value={formData.locationName}
-                      onChange={(e) => setFormData({ ...formData, locationName: e.target.value })}
-                      placeholder="請輸入地點名稱"
-                      required
-                    />
-                  </div>
-                  
-                  <div className="col-md-2 mb-3">
-                    <label className="form-label">🌐 緯度</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      value={formData.latitude}
-                      onChange={(e) => setFormData({ ...formData, latitude: e.target.value })}
-                      placeholder="例如: 22.3193"
-                      required
-                    />
-                  </div>
-                  
-                  <div className="col-md-2 mb-3">
-                    <label className="form-label">🌐 經度</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      value={formData.longitude}
-                      onChange={(e) => setFormData({ ...formData, longitude: e.target.value })}
-                      placeholder="例如: 114.1694"
-                      required
-                    />
-                  </div>
-                  
-                  <div className="col-md-4 mb-3">
-                    <label className="form-label">👤 用戶名</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      value={formData.username}
-                      onChange={(e) => setFormData({ ...formData, username: e.target.value })}
-                      placeholder="請輸入用戶名"
-                      required
-                    />
-                  </div>
+    <Router basename="/pet-protection-map">
+      <div className="container mt-4">
+        <h1 className="text-center mb-4">🐾 香港寵物保護地圖 🐾</h1>
+        
+        {/* 添加新地點 - Moved to top of the page */}
+        <div className="row mb-4">
+          <div className="col-12">
+            <div className="card">
+              <div className="card-body">
+                <h5 className="card-title">📍 添加新地點</h5>
+                
+                {/* 地址搜索工具 */}
+                <div className="address-search-section mb-3">
+                  <h6>🔍 不知道確切座標？</h6>
+                  <p className="small text-muted">搜索香港地址來獲取座標</p>
+                  <LocationSearch onSelectLocation={handleLocationSelect} />
                 </div>
                 
-                <div className="row">
-                  <div className="col-md-4 mb-3">
-                    <label className="form-label">📞 聯絡方式</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      value={formData.contactInfo}
-                      onChange={(e) => setFormData({ ...formData, contactInfo: e.target.value })}
-                      placeholder="請輸入電話或電郵"
-                      required
-                    />
+                <form onSubmit={handleFormSubmit}>
+                  <div className="row">
+                    <div className="col-md-4 mb-3">
+                      <label className="form-label">📌 地點名稱</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={formData.locationName}
+                        onChange={(e) => setFormData({ ...formData, locationName: e.target.value })}
+                        placeholder="請輸入地點名稱"
+                        required
+                      />
+                    </div>
+                    
+                    <div className="col-md-2 mb-3">
+                      <label className="form-label">🌐 緯度</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={formData.latitude}
+                        onChange={(e) => setFormData({ ...formData, latitude: e.target.value })}
+                        placeholder="例如: 22.3193"
+                        required
+                      />
+                    </div>
+                    
+                    <div className="col-md-2 mb-3">
+                      <label className="form-label">🌐 經度</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={formData.longitude}
+                        onChange={(e) => setFormData({ ...formData, longitude: e.target.value })}
+                        placeholder="例如: 114.1694"
+                        required
+                      />
+                    </div>
+                    
+                    <div className="col-md-4 mb-3">
+                      <label className="form-label">👤 用戶名</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={formData.username}
+                        onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+                        placeholder="請輸入用戶名"
+                        required
+                      />
+                    </div>
                   </div>
                   
-                  <div className="col-md-4 mb-3">
-                    <label className="form-label">🏷️ 事件類型</label>
-                    <select
-                      className="form-select"
-                      value={formData.type}
-                      onChange={(e) => setFormData({ ...formData, type: e.target.value })}
-                    >
-                      {Object.values(INCIDENT_TYPES).map(type => (
-                        <option key={type} value={type}>{type}</option>
-                      ))}
-                    </select>
+                  <div className="row">
+                    <div className="col-md-4 mb-3">
+                      <label className="form-label">📞 聯絡方式</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={formData.contactInfo}
+                        onChange={(e) => setFormData({ ...formData, contactInfo: e.target.value })}
+                        placeholder="請輸入電話或電郵"
+                        required
+                      />
+                    </div>
+                    
+                    <div className="col-md-4 mb-3">
+                      <label className="form-label">🏷️ 事件類型</label>
+                      <select
+                        className="form-select"
+                        value={formData.type}
+                        onChange={(e) => setFormData({ ...formData, type: e.target.value })}
+                      >
+                        {Object.values(INCIDENT_TYPES).map(type => (
+                          <option key={type} value={type}>{type}</option>
+                        ))}
+                      </select>
+                    </div>
+                    
+                    <div className="col-md-4 mb-3">
+                      <label className="form-label">📷 上傳照片</label>
+                      <input
+                        type="file"
+                        className="form-control"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                      />
+                    </div>
                   </div>
                   
-                  <div className="col-md-4 mb-3">
-                    <label className="form-label">📷 上傳照片</label>
-                    <input
-                      type="file"
-                      className="form-control"
-                      accept="image/*"
-                      onChange={handleImageChange}
-                    />
-                  </div>
-                </div>
-                
-                <div className="row">
-                  <div className="col-md-8 mb-3">
-                    <label className="form-label">📝 描述</label>
-                    <textarea
-                      className="form-control"
-                      value={formData.description}
-                      onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                      placeholder="請輸入事件描述"
-                      required
-                      rows="2"
-                    />
-                  </div>
-                  
-                  <div className="col-md-4 mb-3 d-flex align-items-end">
-                    {imagePreview ? (
-                      <div className="d-flex justify-content-between w-100">
-                        <img 
-                          src={imagePreview} 
-                          alt="預覽" 
-                          style={{ maxWidth: '100px', maxHeight: '60px' }} 
-                          className="border rounded" 
-                        />
-                        <button type="submit" className="btn btn-primary">添加地點</button>
-                      </div>
-                    ) : (
-                      <button type="submit" className="btn btn-primary w-100">添加地點</button>
-                    )}
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      {/* Map and Location List - side by side */}
-      <div className="row">
-        <div className="col-md-8">
-          <div className="map-container">
-            <MapContainer
-              center={[22.3193, 114.1694]}
-              zoom={11}
-              style={{ height: '500px', width: '100%' }}
-            >
-              <TileLayer
-                url="/tiles/{z}/{x}/{y}.png"
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              />
-              <HeatmapLayer data={pins} show={showHeatmap} />
-              {pins.map(pin => (
-                <Marker key={pin.id} position={pin.position}>
-                  <Popup>
-                    <div>
-                      <strong>📍 地點:</strong> {pin.locationName || '未命名地點'}<br />
-                      <strong>👤 用戶:</strong> {pin.username}<br />
-                      <strong>📝 描述:</strong> {pin.description}<br />
-                      <strong>🏷️ 類型:</strong> {pin.type}<br />
-                      <strong>🌐 座標:</strong> {pin.position[0].toFixed(4)}, {pin.position[1].toFixed(4)}
-                      {pin.imageUrl && (
-                        <div className="mt-2">
+                  <div className="row">
+                    <div className="col-md-8 mb-3">
+                      <label className="form-label">📝 描述</label>
+                      <textarea
+                        className="form-control"
+                        value={formData.description}
+                        onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                        placeholder="請輸入事件描述"
+                        required
+                        rows="2"
+                      />
+                    </div>
+                    
+                    <div className="col-md-4 mb-3 d-flex align-items-end">
+                      {imagePreview ? (
+                        <div className="d-flex justify-content-between w-100">
                           <img 
-                            src={pin.imageUrl} 
-                            alt="事件照片" 
-                            style={{ maxWidth: '100%', maxHeight: '150px' }} 
+                            src={imagePreview} 
+                            alt="預覽" 
+                            style={{ maxWidth: '100px', maxHeight: '60px' }} 
+                            className="border rounded" 
                           />
+                          <button type="submit" className="btn btn-primary">添加地點</button>
                         </div>
+                      ) : (
+                        <button type="submit" className="btn btn-primary w-100">添加地點</button>
                       )}
                     </div>
-                  </Popup>
-                </Marker>
-              ))}
-            </MapContainer>
-          </div>
-        </div>
-
-        <div className="col-md-4">
-          <div className="card h-100">
-            <div className="card-body d-flex flex-column">
-              <h5 className="card-title">📋 地點列表</h5>
-              <div className="mb-3">
-                <button 
-                  className={`btn ${showHeatmap ? 'btn-secondary' : 'btn-primary'}`}
-                  onClick={() => setShowHeatmap(!showHeatmap)}
-                >
-                  {showHeatmap ? '🔍 隱藏熱力圖' : '🔥 顯示熱力圖'}
-                </button>
-              </div>
-              <div 
-                className="pin-list-container flex-grow-1" 
-                style={{ 
-                  height: "420px", 
-                  overflowY: "auto", 
-                  border: "1px solid #eee", 
-                  borderRadius: "4px" 
-                }}
-              >
-                <ul className="list-group list-group-flush">
-                  {pins.map(pin => (
-                    <li key={pin.id} className="list-group-item">
-                      <strong>{pin.locationName || '未命名地點'}</strong> - {pin.username}<br />
-                      {pin.description}<br />
-                      <small>類型: {pin.type}</small><br />
-                      <small>緯度: {pin.position[0].toFixed(4)}, 經度: {pin.position[1].toFixed(4)}</small>
-                      {pin.imageUrl && (
-                        <div className="mt-1">
-                          <img 
-                            src={pin.imageUrl} 
-                            alt="事件照片" 
-                            style={{ maxWidth: '80px', maxHeight: '60px' }} 
-                            className="rounded" 
-                          />
-                        </div>
-                      )}
-                    </li>
-                  ))}
-                </ul>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
         </div>
-      </div>
+        
+        {/* Map and Location List - side by side */}
+        <div className="row">
+          <div className="col-md-8">
+            <div className="map-container">
+              <MapContainer
+                center={[22.3193, 114.1694]}
+                zoom={11}
+                style={{ height: '500px', width: '100%' }}
+              >
+                <TileLayer
+                  url="/tiles/{z}/{x}/{y}.png"
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                />
+                <HeatmapLayer data={pins} show={showHeatmap} />
+                {pins.map(pin => (
+                  <Marker key={pin.id} position={pin.position}>
+                    <Popup>
+                      <div>
+                        <strong>📍 地點:</strong> {pin.locationName || '未命名地點'}<br />
+                        <strong>👤 用戶:</strong> {pin.username}<br />
+                        <strong>📝 描述:</strong> {pin.description}<br />
+                        <strong>🏷️ 類型:</strong> {pin.type}<br />
+                        <strong>🌐 座標:</strong> {pin.position[0].toFixed(4)}, {pin.position[1].toFixed(4)}
+                        {pin.imageUrl && (
+                          <div className="mt-2">
+                            <img 
+                              src={pin.imageUrl} 
+                              alt="事件照片" 
+                              style={{ maxWidth: '100%', maxHeight: '150px' }} 
+                            />
+                          </div>
+                        )}
+                      </div>
+                    </Popup>
+                  </Marker>
+                ))}
+              </MapContainer>
+            </div>
+          </div>
 
-      {/* Social Media Section */}
-      <div className="row mt-5 mb-5">
-        <div className="col-12">
-          <h3 className="text-center mb-4">📰 最新動物資訊</h3>
+          <div className="col-md-4">
+            <div className="card h-100">
+              <div className="card-body d-flex flex-column">
+                <h5 className="card-title">📋 地點列表</h5>
+                <div className="mb-3">
+                  <button 
+                    className={`btn ${showHeatmap ? 'btn-secondary' : 'btn-primary'}`}
+                    onClick={() => setShowHeatmap(!showHeatmap)}
+                  >
+                    {showHeatmap ? '🔍 隱藏熱力圖' : '🔥 顯示熱力圖'}
+                  </button>
+                </div>
+                <div 
+                  className="pin-list-container flex-grow-1" 
+                  style={{ 
+                    height: "420px", 
+                    overflowY: "auto", 
+                    border: "1px solid #eee", 
+                    borderRadius: "4px" 
+                  }}
+                >
+                  <ul className="list-group list-group-flush">
+                    {pins.map(pin => (
+                      <li key={pin.id} className="list-group-item">
+                        <strong>{pin.locationName || '未命名地點'}</strong> - {pin.username}<br />
+                        {pin.description}<br />
+                        <small>類型: {pin.type}</small><br />
+                        <small>緯度: {pin.position[0].toFixed(4)}, 經度: {pin.position[1].toFixed(4)}</small>
+                        {pin.imageUrl && (
+                          <div className="mt-1">
+                            <img 
+                              src={pin.imageUrl} 
+                              alt="事件照片" 
+                              style={{ maxWidth: '80px', maxHeight: '60px' }} 
+                              className="rounded" 
+                            />
+                          </div>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="col-md-6">
-          <InstagramEmbed />
-        </div>
-        <div className="col-md-6">
-          <FacebookEmbed />
+
+        {/* Social Media Section */}
+        <div className="row mt-5 mb-5">
+          <div className="col-12">
+            <h3 className="text-center mb-4">📰 最新動物資訊</h3>
+          </div>
+          <div className="col-md-6">
+            <InstagramEmbed />
+          </div>
+          <div className="col-md-6">
+            <FacebookEmbed />
+          </div>
         </div>
       </div>
-    </div>
+    </Router>
   );
 }
 
