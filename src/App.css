@@ -1,0 +1,42 @@
+.map-container {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 500px;
+  width: 100%;
+}
+
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+}
+
+.card {
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.list-group-item {
+  border-radius: 4px;
+  margin-bottom: 4px;
+}
+
+.btn {
+  border-radius: 4px;
+}
+
+.form-control, .form-select {
+  border-radius: 4px;
+}
+
+/* Leaflet marker icon fix */
+.leaflet-default-icon-path {
+  background-image: url(https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .map-container {
+    margin-bottom: 20px;
+  }
+} 
